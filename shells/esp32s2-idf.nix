@@ -23,8 +23,5 @@ pkgs.mkShell {
     ninja
 
     ncurses5
-
-    llvm-xtensa
-    rust-xtensa
   ];
 }
