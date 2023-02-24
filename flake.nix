@@ -10,7 +10,17 @@
     overlay = import ./overlay.nix;
   } // flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let
-      pkgs = import nixpkgs { inherit system; overlays = [ self.overlay ]; };
+      pkgs = import nixpkgs { inherit system;
+                              overlays = [ self.overlay ];
+                              config = {
+                                allowBroken = true;
+                                permittedInsecurePackages = [
+                                  "python-2.7.18.6"
+                                ]; 
+                              };
+
+                            };
+      
     in
     {
       packages = {
@@ -24,7 +34,9 @@
 
           gcc-xtensa-lx106-elf-bin
           crosstool-ng-xtensa
-          gcc-xtensa-lx106-elf;
+          gcc-xtensa-lx106-elf
+
+          llvm-xtensa;
       };
 
       devShells = {
@@ -34,6 +46,10 @@
         esp32-idf = import ./shells/esp32-idf.nix { inherit pkgs; };
         esp8266 = import ./shells/esp8266.nix { inherit pkgs; };
       };
+      # rust-xtensa = (import ./pkgs/xtensa-rust-bin.nix { rust = pkgs.rust; callPackage = pkgs.callPackage; lib = pkgs.lib; stdenv = pkgs.stdenv; fetchurl = pkgs.fetchurl;});
+
     });
+    # xtensa-rust = 
+
 }
 

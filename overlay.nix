@@ -27,6 +27,10 @@ in
 
   esp-idf = prev.callPackage ./pkgs/esp-idf { inherit mach-nix; };
 
+  # LLVM
+  llvm-xtensa = prev.callPackage ./pkgs/llvm-xtensa-bin.nix { };
+  # Rust
+  rust-xtensa = (import ./pkgs/xtensa-rust-bin.nix { rust = prev.rust; callPackage = prev.callPackage; lib = prev.lib; stdenv = prev.stdenv; fetchurl = prev.fetchurl; });
   # ESP8266
   gcc-xtensa-lx106-elf-bin = prev.callPackage ./pkgs/esp8266-toolchain-bin.nix { };
 
@@ -34,4 +38,6 @@ in
   # during the build, making them impure.
   crosstool-ng-xtensa = prev.callPackage ./pkgs/crosstool-ng-xtensa.nix { };
   gcc-xtensa-lx106-elf = prev.callPackage ./pkgs/gcc-xtensa-lx106-elf { };
+
+  
 }
