@@ -1,4 +1,3 @@
-# This version needs to be compatible with the version of ESP-IDF specified in `esp-idf/default.nix`.
 { version ? "15.0.0-20221201"
 , hash ? "sha256-g55a36f0SYLootgoaA9uSqQ13NPR33ZeAvAVsEKGBW8="
 , stdenv
@@ -21,9 +20,7 @@ assert stdenv.system == "x86_64-linux";
 stdenv.mkDerivation rec {
   pname = "xtensa-llvm-toolchain";
   inherit version;
-
   src = fetchurl {
-    # url = "https://github.com/espressif/llvm-project/releases/download/esp-15.0.0-20221201/llvm-esp-15.0.0-20221201-linux-amd64.tar.xz";
     url = "https://github.com/espressif/llvm-project/releases/download/esp-${version}/llvm-esp-${version}-linux-amd64.tar.xz";
     inherit hash;
   };
