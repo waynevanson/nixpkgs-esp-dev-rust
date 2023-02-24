@@ -1,6 +1,10 @@
 # Rust Fork
 - Add support for using the [esp-rs fork](https://github.com/esp-rs/rust-build) of Rust to support the Xtensa Architecture processors for esp32 (ESP32-S2 and ESP32-S3).
+- Checkout the `esp32s2-idf-rust` devShell (meant as a nix replacement to [espup](https://github.com/esp-rs/espup) ). The reason why I removed `esp-idf` from that shell  is that the [esp-idf-sys](https://github.com/esp-rs/esp-idf-sys) crate automatically clones `esp-idf` and expects it to be a git repository. It also installs the python dependencies automatically through `virtualenv`. I'd imagine supporting `esp32s3` would be similar, but I haven't tested it myself.
+
+## Other notes
 - I copied some code from [rust-overlay](https://github.com/oxalica/rust-overlay), located in the `pkgs/rust` directory.
+
 
 # nixpkgs-esp-dev
 ESP8266 and ESP32(-C3, -S2, -S3) packages and development environments for Nix.
