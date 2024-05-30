@@ -1,17 +1,22 @@
 final: prev:
-let
-  # mach-nix is used to set up the ESP-IDF Python environment.
-  mach-nix-src = prev.fetchFromGitHub {
-    owner = "DavHau";
-    repo = "mach-nix";
-    rev = "98d001727542bb6142d0ab554fc30bd591b07c73";
-    hash = "sha256-SXrwF/KPz8McBN8kN+HTfGphE1hiRSr1mtXSVjPJr8o=";
+rec {
+  esp-idf-full = prev.callPackage ./pkgs/esp-idf { };
+
+  esp-idf-esp32 = esp-idf-full.override {
+    toolsToInclude = [
+      "xtensa-esp32-elf"
+      "esp32ulp-elf"
+      "openocd-esp32"
+      "xtensa-esp-elf-gdb"
+    ];
   };
 
-  mach-nix = import mach-nix-src {
-    pypiDataRev = "1d17587404960e2e9fd0fd7e514b0bbc52abcdfd";
-    pypiDataSha256 = "sha256:078i0af4s1la5cafq958wfk8as711qlf81ngrg0xq0wys7ainig1";
-    pkgs = final;
+  esp-idf-riscv = esp-idf-full.override {
+    toolsToInclude = [
+      "riscv32-esp-elf"
+      "openocd-esp32"
+      "riscv32-esp-elf-gdb"
+    ];
   };
 in
 {
@@ -25,19 +30,35 @@ in
   gcc-xtensa-esp32-elf-bin = prev.callPackage ./pkgs/esp32-toolchain-bin.nix { };
   openocd-esp32-bin = prev.callPackage ./pkgs/openocd-esp32-bin.nix { };
 
-  esp-idf = prev.callPackage ./pkgs/esp-idf { inherit mach-nix; };
+  esp-idf-esp32c3 = esp-idf-riscv;
 
+  esp-idf-esp32s2 = esp-idf-full.override {
+    toolsToInclude = [
+      "xtensa-esp32s2-elf"
+      "esp32ulp-elf"
+      "openocd-esp32"
+      "xtensa-esp-elf-gdb"
+    ];
+  };
   # LLVM
   llvm-xtensa = prev.callPackage ./pkgs/llvm-xtensa-bin.nix { };
   # Rust
   rust-xtensa = (import ./pkgs/rust-xtensa-bin.nix { rust = prev.rust; callPackage = prev.callPackage; lib = prev.lib; stdenv = prev.stdenv; fetchurl = prev.fetchurl; });
+
+  esp-idf-esp32s3 = esp-idf-full.override {
+    toolsToInclude = [
+      "xtensa-esp32s3-elf"
+      "esp32ulp-elf"
+      "openocd-esp32"
+      "xtensa-esp-elf-gdb"
+    ];
+  };
+
+  esp-idf-esp32c6 = esp-idf-riscv;
+
+  esp-idf-esp32h2 = esp-idf-riscv;
+
   # ESP8266
-  gcc-xtensa-lx106-elf-bin = prev.callPackage ./pkgs/esp8266-toolchain-bin.nix { };
-
-  # Note: These are currently broken in flake mode because they fetch files
-  # during the build, making them impure.
-  crosstool-ng-xtensa = prev.callPackage ./pkgs/crosstool-ng-xtensa.nix { };
-  gcc-xtensa-lx106-elf = prev.callPackage ./pkgs/gcc-xtensa-lx106-elf { };
-
-  
+  gcc-xtensa-lx106-elf-bin = prev.callPackage ./pkgs/esp8266-rtos-sdk/esp8266-toolchain-bin.nix { };
+  esp8266-rtos-sdk = prev.callPackage ./pkgs/esp8266-rtos-sdk/esp8266-rtos-sdk.nix { };
 }

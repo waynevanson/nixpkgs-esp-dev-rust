@@ -1,9 +1,9 @@
 { pkgs ? import ../default.nix }:
 
 pkgs.mkShell {
-  name = "esp-idf-esp32-shell";
+  name = "esp8266-rtos-sdk-shell";
 
   buildInputs = with pkgs; [
-    esp-idf-esp32
+    esp8266-rtos-sdk
   ];
 }

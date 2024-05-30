@@ -1,10 +1,9 @@
 { pkgs ? import ../default.nix }:
 
 pkgs.mkShell {
-  name = "esp8266";
+  name = "esp-idf-full-shell";
 
   buildInputs = with pkgs; [
-    gcc-xtensa-lx106-elf-bin
-    esptool
+    esp-idf-full
   ];
 }
