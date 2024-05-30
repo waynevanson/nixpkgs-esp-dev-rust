@@ -2,7 +2,7 @@
   description = "ESP8266/ESP32 development tools";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -23,11 +23,13 @@
           esp-idf-esp32c6
           esp-idf-esp32h2
           gcc-xtensa-lx106-elf-bin
-          esp8266-rtos-sdk;
+          esp8266-rtos-sdk
           crosstool-ng-xtensa
           gcc-xtensa-lx106-elf
 
-          llvm-xtensa;
+          llvm-xtensa
+          llvm-xtensa-lib
+          rust-xtensa;
       };
 
       devShells = {

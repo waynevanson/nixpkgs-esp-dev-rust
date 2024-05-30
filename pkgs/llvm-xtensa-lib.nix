@@ -1,5 +1,5 @@
 { version ? "17.0.1_20240419"
-, hash ? "sha256-xNS+9AUyt3eQe981zxDZFDKkxrg1HuCiHPMzL8mqvbE="
+, hash ? "sha256-oOEVonjgssLp9qhrHrEwlNQpXOB18LnUgUUe5RlU6Sw="
 , stdenv
 , lib
 , fetchurl
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   pname = "xtensa-llvm-toolchain";
   inherit version;
   src = fetchurl {
-    url = "https://github.com/espressif/llvm-project/releases/download/esp-${version}/clang-esp-${version}-x86_64-linux-gnu.tar.xz";
+    url = "https://github.com/espressif/llvm-project/releases/download/esp-${version}/libs-clang-esp-${version}-x86_64-linux-gnu.tar.xz";
     inherit hash;
   };
 
@@ -31,17 +31,10 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     cp -r . $out
-    for FILE in $(ls $out/bin); do
-      FILE_PATH="$out/bin/$FILE"
-      if [[ -x $FILE_PATH ]]; then
-        mv $FILE_PATH $FILE_PATH-unwrapped
-        makeWrapper ${fhsEnv}/bin/xtensa-toolchain-env $FILE_PATH --add-flags "$FILE_PATH-unwrapped"
-      fi
-    done
   '';
 
   meta = with lib; {
-    description = "Xtensa LLVM tool chain";
+    description = "Xtensa LLVM tool chain libraries";
     homepage = "https://github.com/espressif/llvm-project";
     license = licenses.gpl3;
   };

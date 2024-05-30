@@ -3,8 +3,7 @@ pkgs.mkShell {
   name = "esp-idf";
 
   buildInputs = with pkgs; [
-    gcc-xtensa-esp32s2-elf-bin
-    openocd-esp32-bin
+    esp-idf-esp32s2
     # esp-idf
     # esptool
 
@@ -16,7 +15,8 @@ pkgs.mkShell {
     flex
     bison
     gperf
-    pkgconfig
+    pkg-config
+    cargo-generate
 
     cmake
     ninja
@@ -24,6 +24,7 @@ pkgs.mkShell {
     ncurses5
 
     llvm-xtensa
+    llvm-xtensa-lib
     rust-xtensa
 
     # pythonEnv.python
@@ -41,6 +42,6 @@ pkgs.mkShell {
     export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.zlib pkgs.stdenv.cc.cc.lib ]}
     export ESP_IDF_VERSION=v4.4.1
     # export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
-    export LIBCLANG_PATH=${pkgs.llvm-xtensa}/lib
+    export LIBCLANG_PATH=${pkgs.llvm-xtensa-lib}/lib
   '';
 }

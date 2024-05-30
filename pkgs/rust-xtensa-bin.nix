@@ -1,4 +1,4 @@
-{ version ? "1.67.0.0"
+{ version ? "1.78.0.0"
 , callPackage
 , rust
 , lib
@@ -32,11 +32,11 @@ let
     srcs = {  
       rustc = fetchurl {
         url = "https://github.com/esp-rs/rust-build/releases/download/v${version}/rust-${version}-x86_64-unknown-linux-gnu.tar.xz";
-        hash = "sha256-Tk1GQvzlXcMfIkN+yXtDA2BIkK00iKwLGt6eWNlKGsM=";
+        hash = "sha256-4GrkKWIqGPcreWa8IZyllhM9qYlQBUoSAo0InSfRukg=";
       };
       rust-src = fetchurl {
         url = "https://github.com/esp-rs/rust-build/releases/download/v${version}/rust-src-${version}.tar.xz";
-        hash = "sha256-XwYp3YpVriakdqBCLGns3Od+2UlLFmr912Z8lq/xzo8=";
+        hash = "sha256-PUxakoio7s1Gc1f0IVUZyLzvtmFo1r7XhitXMPRm12I=";
       };
       
     };
