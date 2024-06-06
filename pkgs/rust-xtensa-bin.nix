@@ -37,17 +37,15 @@ let
       rust-src = fetchurl {
         url = "https://github.com/esp-rs/rust-build/releases/download/v${version}/rust-src-${version}.tar.xz";
         hash = "sha256-PUxakoio7s1Gc1f0IVUZyLzvtmFo1r7XhitXMPRm12I=";
-      };
-      
+      };    
     };
-
   };
   
 in
 assert stdenv.system == "x86_64-linux";
 mkAggregated {
   pname = "rust-xtensa";
-  date = "2023-01-25";
+  date = "2024-06-06";
   inherit version;
   availableComponents = selComponents;
   selectedComponents = [ selComponents.rustc selComponents.rust-src ];

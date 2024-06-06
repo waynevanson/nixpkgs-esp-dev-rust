@@ -27,6 +27,9 @@ pkgs.mkShell {
     llvm-xtensa-lib
     rust-xtensa
 
+    rust-ldproxy
+    rust-cargo-espflash
+
     # pythonEnv.python
     # (python3.withPackages (p: with p; [pip]))
     python3
@@ -43,5 +46,6 @@ pkgs.mkShell {
     export ESP_IDF_VERSION=v4.4.1
     # export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
     export LIBCLANG_PATH=${pkgs.llvm-xtensa-lib}/lib
+    export RUSTFLAGS="--cfg espidf_time64"
   '';
 }
