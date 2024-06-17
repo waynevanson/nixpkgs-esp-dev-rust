@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     cp -r . $out
     for FILE in $(ls $out/bin); do
       FILE_PATH="$out/bin/$FILE"
-      if [[ -x $FILE_PATH ]]; then
+      if [[ -x $FILE_PATH && $FILE != *lld* ]]; then
         mv $FILE_PATH $FILE_PATH-unwrapped
         makeWrapper ${fhsEnv}/bin/xtensa-toolchain-env $FILE_PATH --add-flags "$FILE_PATH-unwrapped"
       fi

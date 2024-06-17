@@ -29,6 +29,8 @@
 
           llvm-xtensa
           llvm-xtensa-lib
+          rust-ldproxy
+          rust-cargo-espflash
           rust-xtensa;
       };
 
