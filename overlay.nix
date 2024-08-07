@@ -46,10 +46,6 @@ rec {
   # Rust
   rust-xtensa = (import ./pkgs/rust-xtensa-bin.nix { rust = prev.rust; callPackage = prev.callPackage; lib = prev.lib; stdenv = prev.stdenv; fetchurl = prev.fetchurl; });
 
-  # Rust development tools for ESP
-  rust-ldproxy = prev.callPackage ./pkgs/rust-ldproxy.nix { };
-  rust-cargo-espflash = prev.callPackage ./pkgs/rust-cargo-espflash.nix { };
-
   esp-idf-esp32c6 = esp-idf-riscv;
 
   esp-idf-esp32h2 = esp-idf-riscv;

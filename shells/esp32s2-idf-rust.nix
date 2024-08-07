@@ -1,4 +1,4 @@
-{ pkgs ? import ../default.nix  }:
+{ pkgs ? import ../default.nix }:
 pkgs.mkShell {
   name = "esp-idf";
 
@@ -27,8 +27,8 @@ pkgs.mkShell {
     llvm-xtensa-lib
     rust-xtensa
 
-    rust-ldproxy
-    rust-cargo-espflash
+    espflash
+    ldproxy
 
     # pythonEnv.python
     # (python3.withPackages (p: with p; [pip]))

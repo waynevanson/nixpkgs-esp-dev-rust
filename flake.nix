@@ -27,10 +27,10 @@
           crosstool-ng-xtensa
           gcc-xtensa-lx106-elf
 
+          espflash
+          ldproxy
           llvm-xtensa
           llvm-xtensa-lib
-          rust-ldproxy
-          rust-cargo-espflash
           rust-xtensa;
       };
 
