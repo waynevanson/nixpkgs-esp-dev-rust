@@ -25,8 +25,8 @@ pkgs.mkShell {
     llvm-xtensa-lib
     rust-xtensa
 
-    rust-ldproxy
-    rust-cargo-espflash
+    espflash
+    ldproxy
 
     python3
     python3Packages.pip
