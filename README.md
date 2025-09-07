@@ -7,7 +7,7 @@ It's up to date as of `2025-09-07`.
 
 | Repo                                   | Branch              | Explanation                                                                                                                 |
 | :------------------------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------------- |
-| `waynevanson/nixpkgs-esp-dev-rust`     | `main`              | Attempts to update inputs related [ESP `rust-build`](https://github.com/esp-rs/rust-build) from `1.86.0.0` to `1.88.0.0`.   |
+| `waynevanson/nixpkgs-esp-dev-rust`     | `main`              | Attempts to update inputs related [ESP `rust-build`](https://github.com/esp-rs/rust-build) from `1.86.0.0` to `1.88.0.0`, fixes build issues and syncs with mirrexagon esp-idf changes.  |
 | `aljazerzen/nixpkgs-esp-dev-rust`      | `esp32`             | Add ESP32 nix shell, update from `1.80.0.0` to `1.86.0.0`.                                                                  |
 | `hsel-netsys/nixpkgs-esp-dev-rust`     | `update_and_esp32s` | No changes in 1 year. Merge stuff from upstream mirrexagon fork with `esp-idf` updates.                                     |
 | `thiskappaisgrey/nixpkgs-esp-dev-rust` | `rust`              | No changed in 2 years. The base for implemented rust support `esp-rs`, `esp-idf` as nix packages and nix shells in a flake. |
