@@ -1,11 +1,13 @@
-{ pkgs ? import ../default.nix }:
+{
+  pkgs ? import ../default.nix,
+}:
 
 builtins.warn "[DEPRECATION WARNING] Chip specific shell will be removed starting ESP-IDF 6.0. Use esp-idf-full instead."
 
 pkgs.mkShell {
-  name = "esp-idf-esp32c3-shell";
+  name = "esp-idf-esp32p4-shell";
 
   buildInputs = with pkgs; [
-    esp-idf-esp32c3
+    esp-idf-esp32p4
   ];
 }

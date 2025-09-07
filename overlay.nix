@@ -1,13 +1,13 @@
-final: prev:
-rec {
+final: prev: let
   esp-idf-full = prev.callPackage ./pkgs/esp-idf { };
 
-  esp-idf-esp32 = esp-idf-full.override {
+  esp-idf-xtensa = esp-idf-full.override {
     toolsToInclude = [
-      "xtensa-esp32-elf"
+      "xtensa-esp-elf"
       "esp32ulp-elf"
       "openocd-esp32"
       "xtensa-esp-elf-gdb"
+      "esp-rom-elfs"
     ];
   };
 
@@ -16,27 +16,17 @@ rec {
       "riscv32-esp-elf"
       "openocd-esp32"
       "riscv32-esp-elf-gdb"
+      "esp-rom-elfs"
     ];
   };
 
-  esp-idf-esp32c3 = esp-idf-riscv;
+  mkDeprecatedAlias = arch: name: alias: {
+    "${name}" = builtins.warn ''
+        [DEPRECATION WARNING] `${name}` is deprecated and will be removed starting with ESP-IDF 6.0.
+        Please use `esp-idf-full` or `esp-idf-${arch}` instead.
 
-  esp-idf-esp32s2 = esp-idf-full.override {
-    toolsToInclude = [
-      "xtensa-esp32s2-elf"
-      "esp32ulp-elf"
-      "openocd-esp32"
-      "xtensa-esp-elf-gdb"
-    ];
-  };
-
-  esp-idf-esp32s3 = esp-idf-full.override {
-    toolsToInclude = [
-      "xtensa-esp32s3-elf"
-      "esp32ulp-elf"
-      "openocd-esp32"
-      "xtensa-esp-elf-gdb"
-    ];
+        More information here : https://github.com/mirrexagon/nixpkgs-esp-dev/issues/91
+      '' alias;
   };
 
   # LLVM
@@ -46,11 +36,24 @@ rec {
   # Rust
   rust-xtensa = (import ./pkgs/rust-xtensa-bin.nix { rust = prev.rust; callPackage = prev.callPackage; lib = prev.lib; stdenv = prev.stdenv; fetchurl = prev.fetchurl; });
 
-  esp-idf-esp32c6 = esp-idf-riscv;
-
-  esp-idf-esp32h2 = esp-idf-riscv;
+  deprecatedAlias = builtins.foldl' (acc: pair: acc // (mkDeprecatedAlias pair.arch pair.name pair.alias)) {} [
+    { name = "esp-idf-esp32"; alias = esp-idf-xtensa; arch = "xtensa"; }
+    { name = "esp-idf-esp32s2"; alias = esp-idf-xtensa; arch = "xtensa"; }
+    { name = "esp-idf-esp32s3"; alias = esp-idf-xtensa; arch = "xtensa"; }
+    { name = "esp-idf-esp32c2"; alias = esp-idf-riscv;  arch = "riscv"; }
+    { name = "esp-idf-esp32c3"; alias = esp-idf-riscv;  arch = "riscv"; }
+    { name = "esp-idf-esp32c6"; alias = esp-idf-riscv;  arch = "riscv"; }
+    { name = "esp-idf-esp32h2"; alias = esp-idf-riscv;  arch = "riscv"; }
+    { name = "esp-idf-esp32p4"; alias = esp-idf-riscv;  arch = "riscv"; }
+  ];
+in deprecatedAlias // {
+  inherit esp-idf-full esp-idf-xtensa esp-idf-riscv llvm-xtensa llvm-xtensa-lib rust-xtensa;
 
   # ESP8266
-  gcc-xtensa-lx106-elf-bin = prev.callPackage ./pkgs/esp8266-rtos-sdk/esp8266-toolchain-bin.nix { };
-  esp8266-rtos-sdk = prev.callPackage ./pkgs/esp8266-rtos-sdk/esp8266-rtos-sdk.nix { };
+  gcc-xtensa-lx106-elf-bin = prev.callPackage ./pkgs/esp8266/gcc-xtensa-lx106-elf-bin.nix { };
+  esp8266-rtos-sdk = prev.callPackage ./pkgs/esp8266/esp8266-rtos-sdk/esp8266-rtos-sdk.nix { };
+  esp8266-nonos-sdk = prev.callPackage ./pkgs/esp8266/esp8266-nonos-sdk/esp8266-nonos-sdk.nix { };
+
+  # QEMU
+  qemu-esp32 = prev.callPackage ./pkgs/qemu-esp32 { };
 }
