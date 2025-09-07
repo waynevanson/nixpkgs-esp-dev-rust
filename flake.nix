@@ -24,8 +24,6 @@
           esp-idf-esp32h2
           gcc-xtensa-lx106-elf-bin
           esp8266-rtos-sdk
-          crosstool-ng-xtensa
-          gcc-xtensa-lx106-elf
 
           espflash
           ldproxy
